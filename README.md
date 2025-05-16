@@ -58,7 +58,6 @@ Une fois l'application démarrée, les services suivants sont disponibles :
 | Service | URL | Description |
 |---------|-----|-------------|
 | Application Web | http://localhost:8080 | Interface utilisateur et API REST Java |
-| Documentation API Web | http://localhost:8080/swagger-ui.html | Documentation Swagger de l'API Java |
 | Backend API | http://localhost:5000 | API du backend Python |
 | Documentation Backend | http://localhost:5000/apidocs/ | Documentation de l'API du backend |
 | GPU Service | http://localhost:5001 | Service pour les opérations GPU |
