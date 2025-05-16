@@ -1,0 +1,129 @@
+gemini:
+  easy: |
+    What year was the Nintendo Entertainment System (NES) released in North America?
+    Who developed the game Pac-Man?
+    On which console was the game Sonic the Hedgehog first released?
+    What was the flagship fighting game for the Super Nintendo Entertainment System (SNES)?
+    Which company created the Atari 2600?
+    What is the main objective in the game Donkey Kong?
+    Name a popular RPG game released for the PlayStation 1.
+    What was the name of Sega's handheld console that competed with the Game Boy?
+    Which magazine often featured cheat codes for games like Contra?
+    What was the best-selling game on the Sega Genesis?
+    Who is the main character in The Legend of Zelda on NES?
+    What type of game is Tetris?
+    Which console first introduced the character Mario?
+    What was the storage medium for games on the Commodore 64?
+    Name a launch title for the Nintendo 64.
+    What company published the game Street Fighter II?
+    Which console is known for the game Alex Kidd in Miracle World being built-in?
+    What was the primary controller like for the ColecoVision?
+    What was the name of the add-on for the Sega Genesis that allowed it to play CD games?
+    In what year was Space Invaders first released in arcades?
+  medium: |
+    What were common criticisms of the Atari Jaguar's game library?
+    How did the graphics of Doom on the SNES compare to the PC version, according to contemporary reviews?
+    What kind of influence did the game Chrono Trigger have on subsequent RPGs?
+    Describe the atmosphere and themes often explored in games for the TurboGrafx-16.
+    What were some of the marketing strategies Sega used to promote the Genesis against Nintendo?
+    How did magazines of the era describe the sound capabilities of the Neo Geo?
+    What were some of the technical challenges developers faced when creating games for the Sega Saturn?
+    What was the public perception of the Virtual Boy at the time of its release, as reflected in gaming magazines?
+    How did the gameplay of GoldenEye 007 on the Nintendo 64 revolutionize the first-person shooter genre on consoles?
+    What were some of the unique accessories available for the original Game Boy and how were they reviewed?
+    What was the critical reception of the 3DO Interactive Multiplayer console's launch titles?
+    How did game magazines compare the controller design of the Nintendo 64 to that of the Sony PlayStation?
+    What were some of the most innovative gameplay mechanics introduced in Amiga games during the late 1980s?
+    What was the impact of the ESRB rating system's introduction on the content of games like Mortal Kombat for home consoles?
+    How did magazines explain the "blast processing" feature of the Sega Genesis?
+    What were reviewers saying about the narrative complexity of Final Fantasy VII on the PlayStation?
+    How was the level design in Super Mario 64 perceived as a shift from 2D Mario games?
+    What were the main arguments in magazine articles discussing the "bit wars" (e.g., 16-bit vs 32-bit) between consoles like the SNES and PlayStation?
+    What kind of community or modding scene was discussed in magazines for PC games like Quake in the mid-90s?
+    How did contemporary reviews assess the longevity and replay value of games for the Atari Lynx?
+  hard: |
+    Compare and contrast the critical reception and long-term impact of The Legend of Zelda: Ocarina of Time and Final Fantasy VII.
+    Summarize the evolution of the fighting game genre as seen through key releases on the Neo Geo and Sega Saturn.
+    What were the primary factors contributing to the "video game crash of 1983," and how did the Nintendo Entertainment System subsequently revitalize the market, according to industry retrospectives in gaming magazines?
+    Analyze the different approaches to 3D gaming taken by the Nintendo 64, Sony PlayStation, and Sega Saturn, highlighting the strengths and weaknesses of each console's design philosophy as discussed in period articles.
+    Trace the development of mascot platformers from the 8-bit era (e.g., Super Mario Bros., Sonic the Hedgehog) through the 32/64-bit era, discussing how gameplay and character design evolved.
+    Compare the launch strategies and initial game libraries of the Atari 2600 and the ColecoVision. What lessons can be learned from their respective successes and failures as documented in retro game publications?
+    Discuss the portrayal of female protagonists in retro games like Metroid (Samus Aran) and Tomb Raider (Lara Croft) based on magazine articles from their respective eras. How has this perception changed in retrospective articles?
+    What were the defining characteristics of "Western RPGs" versus "Japanese RPGs" on consoles like the SNES and PC during the 1990s, according to game reviews and feature articles?
+    Summarize the console wars between Sega and Nintendo during the 16-bit era, focusing on marketing tactics, exclusive titles like Sonic 2 and Super Mario World, and how gaming magazines fueled the rivalry.
+    How did the rise of CD-ROM technology, as seen with consoles like the Sega CD and PlayStation, change game design in terms of storage capacity, sound, and use of full-motion video, and what were the magazine opinions on these changes?
+    Compare the handheld gaming landscape dominated by the Nintendo Game Boy with its competitors like the Atari Lynx and Sega Game Gear, focusing on battery life, screen quality, and game library diversity as reported in reviews.
+    Analyze the impact of arcade conversions on the success of early home consoles like the Atari 2600 and ColecoVision. Which conversions were most successful and why, according to contemporary magazine reviews?
+    Summarize the trends in sports game development from the NES era (e.g., Tecmo Bowl) to the PlayStation era (e.g., Madden NFL '98), focusing on realism, licensing, and gameplay mechanics.
+    Discuss the controversy and censorship surrounding games like Mortal Kombat and Night Trap and how it was covered in gaming magazines of the time.
+    What were the most significant graphical and audio innovations introduced by the Amiga computer, and how did games like Shadow of the Beast or Lemmings showcase these capabilities, based on magazine features?
+    Compare the business models and philosophies of Nintendo and Sega throughout the 1990s. How did their approaches to hardware, software, and third-party developers differ, as reflected in magazine interviews and industry analysis?
+    Summarize the critical and commercial performance of FMV (Full Motion Video) games on consoles like the Sega CD and 3DO. Were they seen as the future of gaming or a gimmick according to reviews?
+    Explore the concept of "Nintendo hard" difficulty as discussed in magazines. Which NES games best exemplified this, and what were common player and reviewer reactions?
+    How did magazines cover the transition from 2D sprite-based graphics to 3D polygonal graphics in popular franchises like Mario or Castlevania? What were the initial reactions to these changes?
+    Analyze the role of gaming magazines themselves in shaping the culture and community around retro games like Street Fighter II or consoles like the SNES during their heyday.
+
+deepseek:
+  easy: |
+    What year was Sonic the Hedgehog released on the Sega Genesis?
+    Which company developed Metroid for the NES?
+    What was the original price of the Nintendo 64 at launch?
+    Name the protagonist of Mega Man 2.
+    What was the best-selling game on the Atari 2600?
+    Which console first featured a D-pad controller (e.g., NES, Sega Master System)?
+    What genre is Pac-Man classified as?
+    How many buttons did the original Sega Genesis controller have?
+    Which game popularized the term “Konami Code”?
+    What was the final game released for the Sega Dreamcast?
+    Which retro game introduced the “continue screen” mechanic?
+    What year did Donkey Kong arcade cabinets debut?
+    Name the composer of The Legend of Zelda’s original soundtrack.
+    What was the storage medium for games on the TurboGrafx-16?
+    Which console first supported 16-bit graphics?
+    What peripheral allowed NES players to use a light gun for Duck Hunt?
+    Which company created the Final Fantasy series?
+    What was the first game to feature a battery-backed save system?
+    Which handheld console competed with the Game Boy in the 1990s?
+    What game popularized the “platformer” genre in the 1980s?
+  medium: |
+    How did Super Mario Bros. 3 innovate level design compared to earlier platformers?
+    What technical limitations of the NES influenced the art style of Castlevania?
+    Why did the Sega Saturn struggle against the PlayStation in 3D game performance?
+    Describe the role of the Z80 processor in the Sega Master System’s architecture.
+    How did EarthBound subvert RPG tropes popularized by Dragon Quest?
+    What design choices made Chrono Trigger’s “New Game+” feature groundbreaking?
+    Why was the Atari Jaguar marketed as a “64-bit” console despite controversy?
+    How did Street Fighter II impact arcade culture in the early 1990s?
+    What factors led to the commercial failure of the Neo Geo AES console?
+    Explain the significance of Doom’s networked multiplayer mode for PC gaming.
+    How did the Game Boy’s monochrome screen affect Tetris’s popularity?
+    What made Secret of Mana’s cooperative gameplay unique for its time?
+    Why did Final Fantasy VII’s transition to 3D require a multi-disc release?
+    How did Metal Gear on the MSX redefine stealth gameplay mechanics?
+    What role did Phantasy Star IV play in advancing sci-fi RPG storytelling?
+    Why did Super Metroid become a benchmark for non-linear exploration?
+    How did the Sega CD expand gameplay possibilities for Sonic CD?
+    What technical flaws caused the Virtual Boy to cause eye strain?
+    How did Mega Man X modernize the series compared to the NES entries?
+    Why was Pong considered a foundational title for competitive multiplayer?
+  hard: |
+    Compare the library of SNES RPGs (e.g., Final Fantasy VI, Chrono Trigger) to Sega Genesis RPGs (e.g., Phantasy Star IV).
+    How did the marketing strategies of the SNES and Sega Genesis differ during the “Console Wars”?
+    Analyze the evolution of Legend of Zelda’s dungeon design from NES to N64.
+    Summarize the critical reception of Castlevania: Symphony of the Night versus earlier entries.
+    Why did the TurboGrafx-16 succeed in Japan but fail in North America?
+    Compare the impact of Super Mario 64 and Tomb Raider on 3D camera systems.
+    How did the decline of arcades in the 1990s influence home console game design?
+    Contrast the soundtracks of Mega Man 2 (NES) and Streets of Rage 2 (Genesis).
+    What design philosophies differentiate Donkey Kong Country’s pre-rendered graphics from Sonic 3’s sprite work?
+    How did Half-Life on PC influence later console FPS titles like GoldenEye 007?
+    Explain the long-term cultural impact of Pokémon Red/Blue on handheld gaming.
+    Compare the technical limitations of the Game Boy Advance to the Neo Geo Pocket Color.
+    Why did Final Fantasy Tactics receive mixed reviews initially but later gain cult status?
+    How did EarthBound’s localization challenges affect its Western reception?
+    Summarize the role of Myst in popularizing CD-ROM-based games in the 1990s.
+    Analyze the influence of Castlevania: Symphony of the Night on the “Metroidvania” genre.
+    How did the Sega Dreamcast’s online capabilities foreshadow modern gaming trends?
+    Compare the longevity of Tetris (Game Boy) to Dr. Mario as puzzle games.
+    Why did E.T. the Extra-Terrestrial (Atari 2600) fail critically, and how did it affect the industry?
+    How did The Legend of Zelda: Ocarina of Time’s Z-targeting system influence later 3D action games?

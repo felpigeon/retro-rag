@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RetroGames RAG Explorer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        .retro-font {
+            font-family: 'Press Start 2P', cursive;
+        }
+        .pixel-border {
+            box-shadow: 0 0 0 2px #000,
+                        0 0 0 4px #ff6b6b;
+            image-rendering: pixelated;
+        }
+        .scanline {
+            background: linear-gradient(rgba(0, 0, 0, 0.1) 50%, rgba(0, 0, 0, 0.2) 50%);
+            background-size: 100% 4px;
+        }
+        .glow {
+            text-shadow: 0 0 5px rgba(87, 202, 244, 0.7);
+        }
+        .arcade-btn {
+            text-transform: uppercase;
+            font-family: 'Press Start 2P', cursive;
+            transition: all 0.1s ease;
+        }
+        .arcade-btn:active {
+            transform: translateY(2px);
+        }
+        .progress-bar {
+            height: 14px;
+            border: 2px solid black;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        arcade: {
+                            blue: '#57caf4',
+                            pink: '#ff6b6b',
+                            yellow: '#ffd93d',
+                            green: '#6bff8c',
+                            dark: '#1a1a2e'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-arcade-dark min-h-screen scanline">
+    <div class="container mx-auto px-4 py-8">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="retro-font text-3xl text-center text-arcade-yellow mb-8 glow">RetroGames Knowledge Terminal</h1>
+
+            <div class="bg-black rounded-lg shadow-lg p-6 pixel-border">
+                <div class="mb-4">
+                    <input type="text"
+                           id="questionInput"
+                           class="w-full px-4 py-3 border-2 border-arcade-blue bg-black text-arcade-green retro-font text-sm rounded-lg focus:ring-2 focus:ring-arcade-blue focus:border-arcade-blue"
+                           placeholder="WHAT DO YOU WANT TO KNOW?">
+                </div>
+
+                <!-- Advanced Options Section (Collapsible) -->
+                <div class="mb-4">
+                    <button id="advancedOptionsToggle"
+                            class="w-full bg-arcade-dark text-arcade-yellow px-3 py-2 rounded-lg border border-arcade-yellow text-xs retro-font mb-2 flex justify-between items-center">
+                        <span>ADVANCED OPTIONS</span>
+                        <span id="toggleIcon">+</span>
+                    </button>
+
+                    <div id="advancedOptions" class="hidden bg-black border border-arcade-yellow p-4 rounded-lg">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <!-- Method Selection -->
+                            <div>
+                                <label for="methodSelect" class="block text-arcade-yellow text-xs retro-font mb-2">SEARCH METHOD:</label>
+                                <select id="methodSelect" class="w-full px-3 py-2 bg-black border-2 border-arcade-blue text-arcade-green rounded-lg retro-font text-xs">
+                                    <option value="hybrid">HYBRID</option>
+                                    <option value="dense">SEMANTIC</option>
+                                    <option value="bm25">KEYWORD</option>
+                                </select>
+                            </div>
+
+                            <!-- K Parameter (Number of Results) -->
+                            <div>
+                                <label for="kInput" class="block text-arcade-yellow text-xs retro-font mb-2">RESULTS (K):</label>
+                                <input type="number"
+                                       id="kInput"
+                                       min="1"
+                                       max="20"
+                                       value="5"
+                                       class="w-full px-3 py-2 bg-black border-2 border-arcade-blue text-arcade-green rounded-lg retro-font text-xs">
+                            </div>
+
+                            <!-- Filter and Rerank Options -->
+                            <div class="flex flex-col space-y-3">
+                                <div class="flex items-center">
+                                    <input type="checkbox"
+                                           id="filterByEntityCheck"
+                                           class="w-4 h-4 accent-arcade-pink bg-black border-arcade-blue">
+                                    <label for="filterByEntityCheck" class="ml-2 text-arcade-yellow text-xs retro-font">FILTER BY ENTITY</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input type="checkbox"
+                                           id="doRerankCheck"
+                                           class="w-4 h-4 accent-arcade-pink bg-black border-arcade-blue">
+                                    <label for="doRerankCheck" class="ml-2 text-arcade-yellow text-xs retro-font">RERANK RESULTS</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button id="askButton" onclick="askQuestion()"
+                        class="arcade-btn w-full bg-arcade-blue text-black px-6 py-3 rounded-lg hover:bg-arcade-green transition-colors duration-200 flex items-center justify-center">
+                    <span id="buttonText" class="retro-font text-xs">PLAY</span>
+                    <svg id="loadingSpinner" class="hidden animate-spin ml-2 h-5 w-5 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                </button>
+
+                <div id="answer" class="mt-6 p-4 rounded-lg hidden">
+                    <div class="space-y-6">
+                        <!-- Question & Answer Section -->
+                        <div class="bg-black border-2 border-arcade-blue p-4 rounded">
+                            <h2 class="retro-font text-sm text-arcade-yellow mb-2">YOUR QUESTION:</h2>
+                            <p id="questionText" class="text-arcade-green mb-4"></p>
+                            <h2 class="retro-font text-sm text-arcade-yellow mb-2">LOADING ANSWER...</h2>
+                            <p id="answerText" class="text-arcade-green"></p>
+                        </div>
+
+                        <!-- Hallucination Section -->
+                        <div id="hallucinationSection" class="bg-black border-2 border-arcade-pink p-4 rounded hidden">
+                            <h2 class="retro-font text-sm text-arcade-yellow mb-2">HALLUCINATION CHECK</h2>
+                            <div class="mb-3">
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-xs text-arcade-green">HALLUCINATION SCORE:</span>
+                                    <span id="hallucinationScore" class="text-xs text-arcade-pink">0%</span>
+                                </div>
+                                <div class="progress-bar w-full bg-black">
+                                    <div id="hallucinationBar" class="h-full bg-arcade-pink" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-xs text-arcade-green">CONFIDENCE RATING:</span>
+                                    <span id="confidenceScore" class="text-xs text-arcade-green">0%</span>
+                                </div>
+                                <div class="progress-bar w-full bg-black">
+                                    <div id="confidenceBar" class="h-full bg-arcade-green" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            <p id="hallucinationDetails" class="text-arcade-green text-sm mt-3"></p>
+                        </div>
+
+                        <!-- Source Documents Section -->
+                        <div id="sourceDocsSection" class="bg-black border-2 border-arcade-yellow p-4 rounded hidden">
+                            <h2 class="retro-font text-sm text-arcade-yellow mb-2">SOURCE FILES</h2>
+                            <div id="sourceDocsList" class="space-y-4">
+                                <!-- Source documents will be inserted here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle advanced options visibility
+        document.getElementById('advancedOptionsToggle').addEventListener('click', function() {
+            const advancedOptions = document.getElementById('advancedOptions');
+            const toggleIcon = document.getElementById('toggleIcon');
+
+            if (advancedOptions.classList.contains('hidden')) {
+                advancedOptions.classList.remove('hidden');
+                toggleIcon.textContent = '-';
+            } else {
+                advancedOptions.classList.add('hidden');
+                toggleIcon.textContent = '+';
+            }
+        });
+
+        async function askQuestion() {
+            const questionInput = document.getElementById('questionInput');
+            const answerDiv = document.getElementById('answer');
+            const questionText = document.getElementById('questionText');
+            const answerText = document.getElementById('answerText');
+            const hallucinationSection = document.getElementById('hallucinationSection');
+            const sourceDocsSection = document.getElementById('sourceDocsSection');
+            const sourceDocsList = document.getElementById('sourceDocsList');
+            const askButton = document.getElementById('askButton');
+            const buttonText = document.getElementById('buttonText');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+
+            if (!questionInput.value.trim()) {
+                alert('Please enter a question');
+                return;
+            }
+
+            // Get all parameter values
+            const method = document.getElementById('methodSelect').value;
+            const k = parseInt(document.getElementById('kInput').value);
+            const filterByEntity = document.getElementById('filterByEntityCheck').checked;
+            const doRerank = document.getElementById('doRerankCheck').checked;
+
+            // Build the URL with query parameters
+            const baseUrl = '/ask';
+            const queryParams = new URLSearchParams({
+                question: questionInput.value.trim(),
+                method: method,
+                k: k,
+                filterByEntity: filterByEntity,
+                doRerank: doRerank
+            });
+
+            const requestUrl = `${baseUrl}?${queryParams.toString()}`;
+
+            // Show loading state
+            askButton.disabled = true;
+            buttonText.textContent = 'LOADING...';
+            loadingSpinner.classList.remove('hidden');
+            answerDiv.classList.add('hidden');
+            hallucinationSection.classList.add('hidden');
+            sourceDocsSection.classList.add('hidden');
+
+            try {
+                // Use GET request with query parameters
+                const response = await fetch(requestUrl);
+                const data = await response.json();
+
+                if (response.ok) {
+                    // Display question and answer
+                    answerDiv.className = 'mt-6 p-4 rounded-lg';
+                    questionText.textContent = data.question;
+                    answerText.textContent = data.answer;
+
+                    // Handle hallucination details
+                    if (data.hallucination) {
+                        const hallucinationScore = document.getElementById('hallucinationScore');
+                        const hallucinationBar = document.getElementById('hallucinationBar');
+                        const confidenceScore = document.getElementById('confidenceScore');
+                        const confidenceBar = document.getElementById('confidenceBar');
+                        const hallucinationDetails = document.getElementById('hallucinationDetails');
+
+                        // Use hallucination_severity as the score (0.0 to 1.0)
+                        const hallScore = Math.round(data.hallucination.hallucination_severity * 100);
+                        const confScore = Math.round((1 - data.hallucination.hallucination_severity) * 100);
+
+                        hallucinationScore.textContent = `${hallScore}%`;
+                        hallucinationBar.style.width = `${hallScore}%`;
+                        confidenceScore.textContent = `${confScore}%`;
+                        confidenceBar.style.width = `${confScore}%`;
+
+                        // Generate explanation text from the hallucination data
+                        let explanationText = data.hallucination.hallucination_detected ?
+                            "HALLUCINATION DETECTED! Proceed with caution." :
+                            "No hallucination detected. Information appears trustworthy.";
+
+                        // Add detailed results if available
+                        if (data.hallucination.ck_results && data.hallucination.ck_results.length > 0) {
+                            explanationText += "\n\nDETAILED CHECKS:";
+                            data.hallucination.ck_results.forEach((check, i) => {
+                                explanationText += `\n[CHECK ${i+1}] `;
+                                if (typeof check === 'string') {
+                                    explanationText += check;
+                                } else if (typeof check === 'object') {
+                                    // Try to extract meaningful information from the object
+                                    for (const key in check) {
+                                        explanationText += `${key}: ${check[key]} `;
+                                    }
+                                }
+                            });
+                        }
+
+                        hallucinationDetails.textContent = explanationText;
+                        hallucinationSection.classList.remove('hidden');
+                    }
+
+                    // Handle source documents
+                    if (data.docs && data.docs.length > 0) {
+                        sourceDocsList.innerHTML = '';
+
+                        data.docs.forEach((doc, index) => {
+                            const docEl = document.createElement('div');
+                            docEl.className = 'border border-arcade-yellow p-3 rounded';
+
+                            let docContent = `<div class="text-arcade-yellow text-xs mb-1">SOURCE ${index + 1}</div>`;
+
+                            for (const key in doc) {
+                                if (key === 'content' || key === 'text') {
+                                    docContent += `<div class="text-arcade-green mt-2 text-sm">${doc[key]}</div>`;
+                                } else if (key === 'title' || key === 'name') {
+                                    docContent += `<div class="text-arcade-pink">${doc[key]}</div>`;
+                                } else if (key === 'score' || key === 'relevance') {
+                                    const relevanceScore = Math.round(doc[key] * 100);
+                                    docContent += `<div class="mt-2">
+                                        <div class="flex justify-between mb-1">
+                                            <span class="text-xs text-arcade-green">RELEVANCE:</span>
+                                            <span class="text-xs text-arcade-green">${relevanceScore}%</span>
+                                        </div>
+                                        <div class="progress-bar w-full bg-black">
+                                            <div class="h-full bg-arcade-green" style="width: ${relevanceScore}%"></div>
+                                        </div>
+                                    </div>`;
+                                }
+                            }
+
+                            docEl.innerHTML = docContent;
+                            sourceDocsList.appendChild(docEl);
+                        });
+
+                        sourceDocsSection.classList.remove('hidden');
+                    }
+                } else {
+                    // Handle error
+                    answerDiv.className = 'mt-6 p-4 bg-arcade-pink rounded-lg';
+                    questionText.className = 'text-white';
+                    answerText.className = 'text-white';
+                    questionText.textContent = 'ERROR';
+                    answerText.textContent = data.message || 'GAME OVER - TRY AGAIN';
+                }
+
+                answerDiv.classList.remove('hidden');
+            } catch (error) {
+                answerDiv.className = 'mt-6 p-4 bg-arcade-pink rounded-lg';
+                questionText.className = 'text-white';
+                answerText.className = 'text-white';
+                questionText.textContent = 'CONNECTION ERROR';
+                answerText.textContent = 'COULD NOT CONNECT TO SERVER. INSERT ANOTHER COIN.';
+                answerDiv.classList.remove('hidden');
+            } finally {
+                // Reset button state
+                askButton.disabled = false;
+                buttonText.textContent = 'INSERT COIN TO PLAY';
+                loadingSpinner.classList.add('hidden');
+            }
+        }
+
+        // Allow pressing Enter to submit
+        document.getElementById('questionInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                askQuestion();
+            }
+        });
+    </script>
+</body>
+</html>

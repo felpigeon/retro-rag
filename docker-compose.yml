@@ -1,0 +1,57 @@
+services:
+  java-service:
+    build:
+      context: ./rag-app
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - PYTHON_SERVICE_URL=http://python-service:5000
+    depends_on:
+      - python-service
+
+  python-service:
+    build:
+      context: ./rag-backend
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      - DUCKDB_PATH=/data/duckdb.db
+      - QDRANT_HOST=http://qdrant:6333
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+    volumes:
+      - duckdb_data:/data
+    depends_on:
+      - qdrant
+
+  gpu-service:
+    build:
+      context: ./gpu-service
+      dockerfile: Dockerfile
+    ports:
+      - "5001:5001"
+    volumes:
+      - model_cache:/root/.cache/huggingface
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+  qdrant:
+    image: qdrant/qdrant:latest
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    volumes:
+      - qdrant_storage:/qdrant/storage
+    environment:
+      - QDRANT_ALLOW_CORS=true
+
+volumes:
+  qdrant_storage:
+  duckdb_data:
+  model_cache: 
