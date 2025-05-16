@@ -1,6 +1,7 @@
+import os
 from google import genai
 
-client = genai.Client(api_key="AIzaSyBHqAozRSA30mY_q0TRnWfH9_Dsji-nh2Y")
+client = genai.Client(api_key=os.environ.get("GOOGLE_API_KEY"))
 
 
 def generate_embeddings(documents):
